@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Tile Placement Randomizer</title>
+  <meta name="description" content="Terraforming Mars tile placement randomizer for single-player games">
   <script src="./script.js" type="module"></script>
   <style>
     body {
@@ -23,6 +24,7 @@
       outline: none;
     }
     button:hover {background-color: #B88C53;}
+    canvas {margin: 16px 0}
   </style>
   <link rel="apple-touch-icon" sizes="57x57" href="./apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="./apple-icon-60x60.png">
@@ -41,6 +43,15 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146417021-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-146417021-1');
+  </script>
 </head>
 
 <body>
@@ -54,6 +65,8 @@
   <canvas id="canvas" width="320" height="280">
     Sorry, you need a newer browser to use this app.
   </canvas>
+
+  <p>❤ Like this app? <a href="https://ko-fi.com/siacodes">Buy me a coffee!</a></p>
 
   <p>
     <small>City icon made by <a href="https://www.flaticon.com/authors/simpleicon" title="SimpleIcon">SimpleIcon</a> and tree icon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> are from <a
