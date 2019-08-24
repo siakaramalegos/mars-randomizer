@@ -50,59 +50,29 @@ function renderBoard() {
   const x = INNER_TRIANGLE_LONG_SIDE * 4 + 20
   const y = INNER_TRIANGLE_SHORT_SIDE
 
-  drawHexRow({ ctx, x, y, row: BOARD[0] })
-  drawHexRow({
-    ctx,
-    x: x - INNER_TRIANGLE_LONG_SIDE,
-    y: y + SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE,
-    row: BOARD[1]
-  })
-  drawHexRow({
-    ctx,
-    x: x - 2 * INNER_TRIANGLE_LONG_SIDE,
-    y: y + 2 * ( SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE ),
-    row: BOARD[2]
-  })
-  drawHexRow({
-    ctx,
-    x: x - 3 * INNER_TRIANGLE_LONG_SIDE,
-    y: y + 3 * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE),
-    row: BOARD[3]
-  })
-  drawHexRow({
-    ctx,
-    x: x - 4 * INNER_TRIANGLE_LONG_SIDE,
-    y: y + 4 * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE),
-    row: BOARD[4]
-  })
-  drawHexRow({
-    ctx,
-    x: x - 3 * INNER_TRIANGLE_LONG_SIDE,
-    y: y + 5 * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE),
-    row: BOARD[5]
-  })
-  drawHexRow({
-    ctx,
-    x: x - 2 * INNER_TRIANGLE_LONG_SIDE,
-    y: y + 6 * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE),
-    row: BOARD[6]
-  })
-  drawHexRow({
-    ctx,
-    x: x - 1 * INNER_TRIANGLE_LONG_SIDE,
-    y: y + 7 * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE),
-    row: BOARD[7]
-  })
-  drawHexRow({
-    ctx,
-    x: x,
-    y: y + 8 * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE),
-    row: BOARD[8]
-  })
+  for (const [index, row] of BOARD.entries()) {
+    const xIndex = 4 - Math.abs(index - 4)
+    drawHexRow({
+      ctx,
+      x: x - xIndex * INNER_TRIANGLE_LONG_SIDE,
+      y: y + index * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE),
+      row
+    })
+  }
+}
+
+// Generate a random number between 0 and max, inclusive
+function getRandomInt(max) {
+  return Math.floor(Math.random() * ( Math.floor(max) + 1 ) );
+}
+
+function generatePlacements() {
+  console.log('generating!');
+
 }
 
 document.addEventListener('DOMContentLoaded', function () {
   renderBoard()
-  // const select = document.getElementById('num-players')
-  // select.addEventListener('change', selectPlayers)
+  const button = document.getElementById('generate-button')
+  button.addEventListener('click', generatePlacements)
 })
