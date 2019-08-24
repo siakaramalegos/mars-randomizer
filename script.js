@@ -1,4 +1,4 @@
-import hexes from './hexes.js/index.js'
+import hexes from './hexes.js'
 
 const SIDE_LENGTH = 20
 const ANGLE = 1.0472 // 60 degrees in radians
