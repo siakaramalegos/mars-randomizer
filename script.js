@@ -16,15 +16,15 @@ const BOARD = [
   ['land', 'land', 'land', 'land', 'ocean']
 ]
 const FILL_STYLES = {
-  ocean: 'rgba(173, 216, 230, 0.8)',
+  ocean: '#9091B7',
   city: '#CCCCCC',
-  greenery: 'green',
+  greenery: '#BCD7CB',
   noctis: '#AAAAAA',
   land: '#DEB887',
 }
 
 function drawHex({ctx, x, y, spot}) {
-  ctx.strokeStyle = 'black'
+  ctx.strokeStyle = 'white'
   ctx.fillStyle = FILL_STYLES[spot]
   ctx.beginPath();
   ctx.moveTo(x, y); // upper left
@@ -36,6 +36,21 @@ function drawHex({ctx, x, y, spot}) {
   ctx.fill();
   ctx.closePath();
   ctx.stroke();
+
+  if (spot === 'greenery') {
+    const img = new Image();
+    img.onload = function () {
+      ctx.drawImage(img, x + INNER_TRIANGLE_LONG_SIDE/2 - 2, y, 22, 22);
+    }
+    img.src = "./tree-silhouette.svg";
+  }
+  if (spot === 'city') {
+    const img = new Image();
+    img.onload = function () {
+      ctx.drawImage(img, x + INNER_TRIANGLE_LONG_SIDE / 2, y, 20, 20);
+    }
+    img.src = "./buildings.svg";
+  }
 }
 
 function drawHexRow({ctx, x, y, row}) {
@@ -47,7 +62,7 @@ function drawHexRow({ctx, x, y, row}) {
 
 function renderBoard(ctx) {
   // Top rown starting point)
-  const x = INNER_TRIANGLE_LONG_SIDE * 5
+  const x = INNER_TRIANGLE_LONG_SIDE * 4 + 1
   const y = INNER_TRIANGLE_SHORT_SIDE
 
   for (const [index, row] of BOARD.entries()) {
@@ -94,7 +109,7 @@ function getCity2NoDupes(max, placements) {
 function renderPlacement({ctx, column, row, type}) {
   drawHex({
     ctx,
-    x: INNER_TRIANGLE_LONG_SIDE * ( column + 1),
+    x: INNER_TRIANGLE_LONG_SIDE * column + 1 ,
     y: row * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE) + INNER_TRIANGLE_SHORT_SIDE,
     spot: type
   })
@@ -117,7 +132,6 @@ function generatePlacements() {
   const city2 = hexes[city2Info.cityIndex]
   const greenery2Index = city2Info.possibleGreeneries[getRandomInt(city2Info.possibleGreeneries.length)]
   const greenery2 = hexes[greenery2Index]
-  console.log({city1, city2, greenery1, greenery2});
 
   renderPlacement({ ctx, column: city1.column, row: city1.row, type: 'city' })
   renderPlacement({ ctx, column: greenery1.column, row: greenery1.row, type: 'greenery' })
