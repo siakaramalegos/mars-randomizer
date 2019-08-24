@@ -1,3 +1,5 @@
+import hexes from './hexes.js/index.js'
+
 const SIDE_LENGTH = 20
 const ANGLE = 1.0472 // 60 degrees in radians
 const INNER_TRIANGLE_LONG_SIDE = Math.sin(ANGLE) * SIDE_LENGTH
@@ -43,11 +45,9 @@ function drawHexRow({ctx, x, y, row}) {
   }
 }
 
-function renderBoard() {
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
+function renderBoard(ctx) {
   // Top rown starting point)
-  const x = INNER_TRIANGLE_LONG_SIDE * 4 + 20
+  const x = INNER_TRIANGLE_LONG_SIDE * 5
   const y = INNER_TRIANGLE_SHORT_SIDE
 
   for (const [index, row] of BOARD.entries()) {
@@ -61,18 +61,74 @@ function renderBoard() {
   }
 }
 
-// Generate a random number between 0 and max, inclusive
+// Generate a random number between 0 and max, exclusive of max
 function getRandomInt(max) {
-  return Math.floor(Math.random() * ( Math.floor(max) + 1 ) );
+  return Math.floor(Math.random() * Math.floor(max) );
+}
+
+function getRandomNoDupes(max, current) {
+  let randomNumber = getRandomInt(max)
+  if (current.includes(randomNumber)) {
+    randomNumber = getRandomNoDupes(max, current)
+  }
+  return randomNumber
+}
+
+function getPossibleGreeneries(cityIndex, placements) {
+  let adjacents = hexes[cityIndex].adjacents
+  for (let placement of placements) {
+    adjacents = adjacents.filter(element => element !== placement)
+  }
+  return adjacents
+}
+
+function getCity2NoDupes(max, placements) {
+  let cityIndex = getRandomNoDupes(max, placements)
+  const possibleGreeneries = getPossibleGreeneries(cityIndex, placements)
+  if (possibleGreeneries.length === 0) {
+    cityIndex = getCity2NoDupes(max, placements)
+  }
+  return { cityIndex, possibleGreeneries }
+}
+
+function renderPlacement({ctx, column, row, type}) {
+  drawHex({
+    ctx,
+    x: INNER_TRIANGLE_LONG_SIDE * ( column + 1),
+    y: row * (SIDE_LENGTH + INNER_TRIANGLE_SHORT_SIDE) + INNER_TRIANGLE_SHORT_SIDE,
+    spot: type
+  })
 }
 
 function generatePlacements() {
-  console.log('generating!');
+  // Reset board
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  renderBoard(ctx)
 
+  const numPlacements = hexes.length
+  const city1Index = getRandomInt(numPlacements)
+  const city1 = hexes[city1Index]
+  const greenery1Index = city1.adjacents[getRandomInt(city1.adjacents.length)]
+  const greenery1 = hexes[greenery1Index]
+
+  const placements = [city1Index, greenery1Index]
+  const city2Info = getCity2NoDupes(numPlacements, placements)
+  const city2 = hexes[city2Info.cityIndex]
+  const greenery2Index = city2Info.possibleGreeneries[getRandomInt(city2Info.possibleGreeneries.length)]
+  const greenery2 = hexes[greenery2Index]
+  console.log({city1, city2, greenery1, greenery2});
+
+  renderPlacement({ ctx, column: city1.column, row: city1.row, type: 'city' })
+  renderPlacement({ ctx, column: greenery1.column, row: greenery1.row, type: 'greenery' })
+  renderPlacement({ ctx, column: city2.column, row: city2.row, type: 'city' })
+  renderPlacement({ ctx, column: greenery2.column, row: greenery2.row, type: 'greenery' })
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  renderBoard()
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  renderBoard(ctx)
   const button = document.getElementById('generate-button')
   button.addEventListener('click', generatePlacements)
 })
