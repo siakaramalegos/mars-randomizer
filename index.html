@@ -10,8 +10,21 @@
   <script src="./script.js" type="module"></script>
   <style>
     body {
+      align-items: center;
       color: #96692F;
+      display: flex;
+      flex-direction: column;
       font-family: Arial, Helvetica, sans-serif;
+    }
+    main {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      max-width: 550px;
+    }
+    p, h1 {
+      margin: 0.5em 0;
+      text-align: center;
     }
     a {color: #444680}
     a:hover {color: #67689B}
@@ -55,24 +68,28 @@
 </head>
 
 <body>
-  <h1>Tile Placement Randomizer</h1>
-  <p>For single-player games of Terraforming Mars</p>
+  <main>
+    <h1>Tile Placement Randomizer</h1>
+    <p>For single-player games of Terraforming Mars</p>
 
-  <p>
-    <button id="generate-button">Generate placements</button>
-  </p>
+    <p>
+      <button id="generate-button">Generate placements</button>
+    </p>
 
-  <canvas id="canvas" width="320" height="280">
-    Sorry, you need a newer browser to use this app.
-  </canvas>
+    <div>
+      <canvas id="canvas" width="320" height="280">
+        Sorry, you need a newer browser to use this app.
+      </canvas>
+    </div>
 
-  <p>❤ Like this app? <a href="https://ko-fi.com/siacodes">Buy me a coffee!</a></p>
+    <p>❤ Like this app? <a href="https://ko-fi.com/siacodes">Buy me a coffee!</a></p>
 
-  <p>
-    <small>City icon made by <a href="https://www.flaticon.com/authors/simpleicon" title="SimpleIcon">SimpleIcon</a> and tree icon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> are from <a
-      href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> and licensed by <a
-      href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.</small>
-  </p>
+    <p>
+      <small>City icon made by <a href="https://www.flaticon.com/authors/simpleicon" title="SimpleIcon">SimpleIcon</a> and tree icon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> are from <a
+        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> and licensed by <a
+        href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.</small>
+    </p>
+  </main>
 </body>
 
 </html>
