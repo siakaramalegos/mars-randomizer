@@ -116,5 +116,63 @@ export default {
     { row: 8, column: 10, adjacents: [41, 42, 46, 48] }, // 47
     { row: 8, column: 12, adjacents: [42, 43, 47] }, // 48
   ],
-  elysium: [],
+  elysium: [
+    { row: 0, column: 12, adjacents: [4] }, // 0
+
+    { row: 1, column: 3, adjacents: [2, 5, 6] }, // 1
+    { row: 1, column: 5, adjacents: [1, 3, 6, 7] }, // 2
+    { row: 1, column: 7, adjacents: [2, 7, 8] }, // 3
+    { row: 1, column: 13, adjacents: [0, 9] }, // 4
+
+    { row: 2, column: 2, adjacents: [1, 6, 10, 11] }, // 5
+    { row: 2, column: 4, adjacents: [1, 2, 5, 7, 11, 12] }, // 6
+    { row: 2, column: 6, adjacents: [2, 3, 6, 8, 12] }, // 7
+    { row: 2, column: 8, adjacents: [3, 7, 13] }, // 8
+    { row: 2, column: 14, adjacents: [4, 14] }, // 9
+
+    { row: 3, column: 1, adjacents: [5, 11, 15, 16] }, // 10
+    { row: 3, column: 3, adjacents: [5, 6, 10, 12, 16, 17] }, // 11
+    { row: 3, column: 5, adjacents: [6, 7, 11, 17] }, // 12
+    { row: 3, column: 9, adjacents: [8, 18, 19] }, // 13
+    { row: 3, column: 15, adjacents: [9, 21, 22] }, // 14
+
+    { row: 4, column: 0, adjacents: [10, 16, 23] }, // 15
+    { row: 4, column: 2, adjacents: [10, 11, 15, 17, 23, 24] }, // 16
+    { row: 4, column: 4, adjacents: [11, 12, 16, 24, 25] }, // 17
+    { row: 4, column: 8, adjacents: [13, 19, 26, 27] }, // 18
+    { row: 4, column: 10, adjacents: [13, 18, 20, 27, 28] }, // 19
+    { row: 4, column: 12, adjacents: [19, 21, 28, 29] }, // 20
+    { row: 4, column: 14, adjacents: [14, 20, 22, 29, 30] }, // 21
+    { row: 4, column: 16, adjacents: [14, 21, 30] }, // 22
+
+    { row: 5, column: 1, adjacents: [15, 16, 24, 31] }, // 23
+    { row: 5, column: 3, adjacents: [16, 17, 23, 25, 31, 32] }, // 24
+    { row: 5, column: 5, adjacents: [17, 24, 26, 32, 33] }, // 25
+    { row: 5, column: 7, adjacents: [18, 25, 27, 33, 34] }, // 26
+    { row: 5, column: 9, adjacents: [18, 19, 26, 28, 34, 35] }, // 27
+    { row: 5, column: 11, adjacents: [19, 20, 27, 29, 35, 36] }, // 28
+    { row: 5, column: 13, adjacents: [20, 21, 28, 30, 36, 37] }, // 29
+    { row: 5, column: 15, adjacents: [21, 22, 29, 37] }, // 30
+
+    { row: 6, column: 2, adjacents: [23, 24, 32, 38] }, // 31
+    { row: 6, column: 4, adjacents: [24, 25, 31, 33, 38, 39] }, // 32
+    { row: 6, column: 6, adjacents: [25, 26, 32, 34, 39, 40] }, // 33
+    { row: 6, column: 8, adjacents: [26, 27, 33, 35, 40, 41] }, // 34
+    { row: 6, column: 10, adjacents: [27, 28, 34, 36, 41, 42] }, // 35
+    { row: 6, column: 12, adjacents: [28, 29, 35, 37, 42, 43] }, // 36
+    { row: 6, column: 14, adjacents: [29, 30, 36, 43] }, // 37
+
+    { row: 7, column: 3, adjacents: [31, 32, 39, 44] }, // 38
+    { row: 7, column: 5, adjacents: [32, 33, 38, 40, 44, 45] }, // 39
+    { row: 7, column: 7, adjacents: [33, 34, 39, 41, 45, 46] }, // 40
+    { row: 7, column: 9, adjacents: [34, 35, 40, 42, 46, 47] }, // 41
+    { row: 7, column: 11, adjacents: [35, 36, 41, 43, 47, 48] }, // 42
+    { row: 7, column: 13, adjacents: [36, 37, 42, 48] }, // 43
+
+    { row: 8, column: 4, adjacents: [38, 39, 45] }, // 44
+    { row: 8, column: 6, adjacents: [39, 40, 44, 46] }, // 45
+    { row: 8, column: 8, adjacents: [40, 41, 45, 47] }, // 46
+    { row: 8, column: 10, adjacents: [41, 42, 46, 48] }, // 47
+    { row: 8, column: 12, adjacents: [42, 43, 47] }, // 48
+  ],
 }
