@@ -1,26 +1,19 @@
-import hexes from './hexes.js'
+import base from './base.js'
+import BOARDS from './boards.js'
 
 const SIDE_LENGTH = 20
 const ANGLE = 1.0472 // 60 degrees in radians
 const INNER_TRIANGLE_LONG_SIDE = Math.sin(ANGLE) * SIDE_LENGTH
 const INNER_TRIANGLE_SHORT_SIDE = Math.cos(ANGLE) * SIDE_LENGTH
-const BOARD = [
-  ['land', 'ocean', 'land', 'ocean', 'ocean'],
-  ['land', 'land', 'land', 'land', 'land', 'ocean'],
-  ['land', 'land', 'land', 'land', 'land', 'land', 'land'],
-  ['land', 'land', 'land', 'land', 'land', 'land', 'land', 'ocean'],
-  ['land', 'land', 'noctis', 'ocean', 'ocean', 'ocean', 'land', 'land', 'land'],
-  ['land', 'land', 'land', 'land', 'land', 'ocean', 'ocean', 'ocean'],
-  ['land', 'land', 'land', 'land', 'land', 'land', 'land'],
-  ['land', 'land', 'land', 'land', 'land', 'land'],
-  ['land', 'land', 'land', 'land', 'ocean']
-]
 const FILL_STYLES = {
   ocean: '#9091B7',
   city: '#CCCCCC',
   greenery: '#BCD7CB',
   noctis: '#AAAAAA',
   land: '#DEB887',
+}
+const state = {
+  board: 'base',
 }
 
 function drawHex({ctx, x, y, spot}) {
@@ -60,12 +53,13 @@ function drawHexRow({ctx, x, y, row}) {
   }
 }
 
-function renderBoard(ctx) {
+function renderBoard() {
+  const ctx = state.ctx
   // Top rown starting point)
   const x = INNER_TRIANGLE_LONG_SIDE * 4 + 1
   const y = INNER_TRIANGLE_SHORT_SIDE
-
-  for (const [index, row] of BOARD.entries()) {
+  const board = BOARDS[state.board]
+  for (const [index, row] of board.entries()) {
     const xIndex = 4 - Math.abs(index - 4)
     drawHexRow({
       ctx,
@@ -90,7 +84,7 @@ function getRandomNoDupes(max, current) {
 }
 
 function getPossibleGreeneries(cityIndex, placements) {
-  let adjacents = hexes[cityIndex].adjacents
+  let adjacents = base[cityIndex].adjacents
   for (let placement of placements) {
     adjacents = adjacents.filter(element => element !== placement)
   }
@@ -116,22 +110,21 @@ function renderPlacement({ctx, column, row, type}) {
 }
 
 function generatePlacements() {
+  const ctx = state.ctx
   // Reset board
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  renderBoard(ctx)
+  renderBoard()
 
-  const numPlacements = hexes.length
+  const numPlacements = base.length
   const city1Index = getRandomInt(numPlacements)
-  const city1 = hexes[city1Index]
+  const city1 = base[city1Index]
   const greenery1Index = city1.adjacents[getRandomInt(city1.adjacents.length)]
-  const greenery1 = hexes[greenery1Index]
+  const greenery1 = base[greenery1Index]
 
   const placements = [city1Index, greenery1Index]
   const city2Info = getCity2NoDupes(numPlacements, placements)
-  const city2 = hexes[city2Info.cityIndex]
+  const city2 = base[city2Info.cityIndex]
   const greenery2Index = city2Info.possibleGreeneries[getRandomInt(city2Info.possibleGreeneries.length)]
-  const greenery2 = hexes[greenery2Index]
+  const greenery2 = base[greenery2Index]
 
   renderPlacement({ ctx, column: city1.column, row: city1.row, type: 'city' })
   renderPlacement({ ctx, column: greenery1.column, row: greenery1.row, type: 'greenery' })
@@ -139,10 +132,17 @@ function generatePlacements() {
   renderPlacement({ ctx, column: greenery2.column, row: greenery2.row, type: 'greenery' })
 }
 
+function selectBoard(e) {
+  state.board = e.target.value
+  renderBoard()
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+  const select = document.getElementById('board')
+  select.addEventListener('change', selectBoard)
   const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  renderBoard(ctx)
+  state.ctx = canvas.getContext('2d');
+  renderBoard()
   const button = document.getElementById('generate-button')
   button.addEventListener('click', generatePlacements)
 })
