@@ -10,7 +10,7 @@ export default {
     ['land', 'land', 'land', 'land', 'land', 'land'],
     ['land', 'land', 'land', 'land', 'ocean']
   ],
-  hellas: [
+  elysium: [
     ['ocean', 'ocean', 'ocean', 'ocean', 'land'],
     ['land', 'land', 'land', 'ocean', 'ocean', 'land'],
     ['land', 'land', 'land', 'land', 'ocean', 'ocean', 'land'],
@@ -21,7 +21,7 @@ export default {
     ['land', 'land', 'land', 'land', 'land', 'land'],
     ['land', 'land', 'land', 'land', 'land']
   ],
-  elysium: [
+  hellas: [
     ['ocean', 'land', 'land', 'land', 'land'],
     ['ocean', 'land', 'land', 'land', 'land', 'land'],
     ['ocean', 'land', 'land', 'land', 'land', 'land', 'land'],

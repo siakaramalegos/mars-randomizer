@@ -1,4 +1,4 @@
-import base from './base.js'
+import HEXES from './hexes.js'
 import BOARDS from './boards.js'
 
 const SIDE_LENGTH = 20
@@ -12,6 +12,7 @@ const FILL_STYLES = {
   noctis: '#AAAAAA',
   land: '#DEB887',
 }
+
 const state = {
   board: 'base',
 }
@@ -84,7 +85,7 @@ function getRandomNoDupes(max, current) {
 }
 
 function getPossibleGreeneries(cityIndex, placements) {
-  let adjacents = base[cityIndex].adjacents
+  let adjacents = HEXES[state.board][cityIndex].adjacents
   for (let placement of placements) {
     adjacents = adjacents.filter(element => element !== placement)
   }
@@ -114,17 +115,18 @@ function generatePlacements() {
   // Reset board
   renderBoard()
 
-  const numPlacements = base.length
+  const hexMapping = HEXES[state.board]
+  const numPlacements = hexMapping.length
   const city1Index = getRandomInt(numPlacements)
-  const city1 = base[city1Index]
+  const city1 = hexMapping[city1Index]
   const greenery1Index = city1.adjacents[getRandomInt(city1.adjacents.length)]
-  const greenery1 = base[greenery1Index]
+  const greenery1 = hexMapping[greenery1Index]
 
   const placements = [city1Index, greenery1Index]
   const city2Info = getCity2NoDupes(numPlacements, placements)
-  const city2 = base[city2Info.cityIndex]
+  const city2 = hexMapping[city2Info.cityIndex]
   const greenery2Index = city2Info.possibleGreeneries[getRandomInt(city2Info.possibleGreeneries.length)]
-  const greenery2 = base[greenery2Index]
+  const greenery2 = hexMapping[greenery2Index]
 
   renderPlacement({ ctx, column: city1.column, row: city1.row, type: 'city' })
   renderPlacement({ ctx, column: greenery1.column, row: greenery1.row, type: 'greenery' })
